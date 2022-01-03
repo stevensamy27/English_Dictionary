@@ -6,10 +6,18 @@ def index(request):
     return render(request, 'index.html')
 
 def word(request):
-    search = request.Get.get('search')
+    search = request.GET.get('search')
     dictionary =  PyDictionary()
     meaning = dictionary.meaning(search)
     synonyms = dictionary.synonym(search)
-    antonyms = dictionary.antonyms(search)
-    return render(request, 'word.html') 
+    antonyms = dictionary.antonym(search)
+
+    context={
+        'meaning':meaning ['Noun'][0],
+        'synonyms':synonyms,
+        'antonyms': antonyms 
+
+    }
+
+    return render(request, 'word.html', context ) 
 
